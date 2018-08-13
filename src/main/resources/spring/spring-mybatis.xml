@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- 配置mybatis操作数据库 -->
+	<bean id="sqlSessionFactoryBean" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<!-- 指定数据源 -->
+		<property name="dataSource" ref="dataSource"></property>
+		<!--  typeAliasesPackage：它一般对应我们的实体类所在的包 -->
+		<property name="typeAliasesPackage" value="com.sf.wdx.domain"></property>
+		<!-- 通用mapper插件 -->
+		<property name="plugins">
+			<array>
+				<bean class="com.github.abel533.mapperhelper.MapperInterceptor">
+					<property name="properties">
+						<value>
+							mappers=com.github.abel533.mapper.Mapper
+							IDENTITY=MYSQL
+							notEmpty=true
+						</value>
+					</property>
+				</bean>
+			</array>
+		</property>
+	</bean>
+	
+	<!-- 将所mapper接口的实现类自动加入到ioc容器中  -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.sf.wdx.mapper"></property>
+	</bean>
+
+</beans>

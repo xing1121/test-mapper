@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+	<!-- 组件扫描 -->
+	<context:component-scan base-package="com.sf.wdx.*" use-default-filters="true"/>
+	
+	<!-- 引入其他xml配置文件 -->
+	<import resource="classpath:spring/spring-mybatis.xml"/>
+	
+	<!-- 配置数据源 -->
+	<context:property-placeholder location="classpath:properties/dbconfig.properties"/>
+	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
+		<property name="username" value="${jdbc_username}"></property>
+		<property name="password" value="${jdbc_password}"></property>
+		<property name="url" value="${jdbc_url}"></property>
+		<property name="driverClassName" value="${jdbc_driver}"></property>
+	</bean>
+	
+</beans>
