@@ -46,6 +46,12 @@ public class StartUp {
 		System.out.println("更新成功！");
 		System.out.println("-------------------------------------");
 		
+		// 按照id更新非空字段
+		Person pp = new Person();
+		pp.setId(21L);
+		pp.setAge(123);
+		personMapper.updateByPrimaryKeySelective(pp);
+		
 		// 条件查询
 		list = personMapper.selectByExample(example);
 		list.forEach(System.out::println);
